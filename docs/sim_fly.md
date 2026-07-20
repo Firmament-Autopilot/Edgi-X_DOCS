@@ -13,7 +13,7 @@ FMT\FMT-Firmware\target\infineon\edge-e83\m55> scons -j16 --sim=SIH
 编译完成后将固件下载到飞控中
 
 ```
-FMT\FMT-Firmware\target\infineon\edge-e83\m55> python.exe .\uploader.py
+FMT\FMT-Firmware\target\infineon\edge-e83\m55> python.exe .\uploader.py --firmware build/fmt_e83-m55.hex
 ```
 
 将飞控连接到地面站，即可通过地面站看到飞控状态，以及给飞控发送指令（如解锁/上锁，起飞，降落，返航等）。

@@ -23,7 +23,7 @@ FMT目前支持两种硬件在环的仿真模式：
 在编译项目的时候添加`--sim=SIH`的选项：
 
 ```
-FMT-Firmware\target\sieon\s1> scons -j4 --sim=SIH
+FMT-Firmware\target\infineon\edge-e83\m55> scons -j4 --sim=SIH
 ```
 
 
@@ -36,8 +36,8 @@ FMT-Firmware\target\sieon\s1> scons -j4 --sim=SIH
 /_/ /_/_/ /_/_/_/\_,_/_/_/_/\__/_//_/\__/
 Firmware.....................FMT FW v1.1.0
 Kernel....................RT-Thread v4.0.3
-RAM.................................512 KB
-Target............................SIEON S1
+RAM................................1408 KB
+Target............................Edge-E83
 Vehicle........................Multicopter
 Airframe.................................1
 INS Model....................CF INS v1.0.0
@@ -68,7 +68,7 @@ Task Initialize:
 在编译项目的时候添加`--sim=HIL`的选项：
 
 ```
-FMT-Firmware\target\sieon\s1> scons -j4 --sim=HIL
+FMT-Firmware\target\infineon\edge-e83\m55> scons -j4 --sim=HIL
 ```
 
 

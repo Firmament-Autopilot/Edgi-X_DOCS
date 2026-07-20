@@ -2,7 +2,7 @@
 
 `[actuator]`可以被用来配置actuator输出模块，它包含了一个或多个`[[actuator.devices]]`。
 
-对于S1飞控来说，有2个输出设备，main_out和aux_out，分别对应M1-M12的PWM输出以及A1-A4的PWM输出。不同的输出设备可以分别设置PWM的输出频率。
+对于E83飞控来说，有2个输出设备，main_out和aux_out，分别对应M1-M12的PWM输出以及A1-A4的PWM输出。不同的输出设备可以分别设置PWM的输出频率。
 
 比如如下所示，将main_out设置为了400Hz频率的PWM，将aux_out设置为了50Hz频率的PWM。这样可以使用aux_out连接要低PWM频率的设备，如舵机，用main_out连接高PWM频率的设备，如电机。
 

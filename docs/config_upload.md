@@ -4,7 +4,7 @@
 
 ### 上传配置文件
 
-在S1的BSP目录中（`FMT-Firmware\target\infineon\edge-e83\m55\config`）有提供一个标准的配置文件`sysconfig.toml`，我们可以通过QGC地面站或者使用SD读卡器将其上传到飞控SD卡的/sys目录下。
+在 E83 的 BSP 目录中（`FMT-Firmware\target\infineon\edge-e83\m55\config`）有提供一个标准的配置文件`sysconfig.toml`，我们可以通过QGC地面站或者使用SD读卡器将其上传到飞控SD卡的/sys目录下。
 
 这里以QGC上传为例，使用Type-C数据线连接飞控到地面站，点击*组件->Onboard Files*按钮，打开FTP文件上传/下载界面。点击*列出文件*按钮，可列出飞控文件系统上的所有文件，如下图所示。
 
@@ -14,7 +14,7 @@
     <img src="./figures/onboard_files.png" width="60%">
 </p>
 
-单击选中*sys*目录，然后点击上传文件，选择`FMT-Firmware/target/sieon/s1/config/sysconfig.toml`，即可将该文件上传到飞控的sys目录。上传完成后，在控制台输入`cat /sys/sysconfig.toml`可查看该文件内容。
+单击选中*sys*目录，然后点击上传文件，选择`FMT-Firmware/target/infineon/edge-e83/m55/config/sysconfig.toml`，即可将该文件上传到飞控的sys目录。上传完成后，在控制台输入`cat /sys/sysconfig.toml`可查看该文件内容。
 
 <p align="left">
     <img src="./figures/onboard_files2.png" width="60%">
