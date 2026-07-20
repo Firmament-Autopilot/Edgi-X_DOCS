@@ -9,5 +9,5 @@ Edgi-X除了提供标准的外部接口，如串口、SPI、IIC、PWM、USB等�
 Edgi-X搭载了FMT固件，可用于无人机，无人车，无人船和机器人等应用领域。FMT是下一代开源智驾仪系统，支持基于模型开发（Model-based-design，MBD）。使用MATLAB/Simulink以图形化方式快速搭建算法模型，一键代码自动生成轻松部署到飞控硬件上，大大提高科研和研发效率，是先进算法验证、二次开发的理想平台。
 
   <p align="center">
-    <img src="./figures/s1.png" width="50%">
+    <img src="./figures/E83.png" width="50%">
   </p>

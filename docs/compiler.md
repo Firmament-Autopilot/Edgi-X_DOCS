@@ -17,12 +17,43 @@
 
 要了解如何构建和下载固件，可查阅每个 BSP 的 README 文件。README 文件通常提供了详细的步骤、依赖项和配置说明，确保固件成功编译和下载。
 
-在以下说明介绍中，我们将以 编译**SIESON S1**飞控作为示例，来阐述固件构建过程。
+## E83 多镜像说明
+
+Edge-E83 工程由 bootloader、M33 和 M55 三部分组成，编译和烧写时需要按如下顺序处理：
+
+1. **bootloader**：位于 `FMT-Firmware/target/infineon/edge-e83/bootloader`，运行在 CM33 安全侧，负责芯片启动、安全镜像签名/校验、系统初始化以及后续应用镜像的加载。它会生成 `build/sign_rtthread.hex`，M33 镜像打包时会引用这个文件。
+2. **M33**：位于 `FMT-Firmware/target/infineon/edge-e83/m33`，运行在 CM33 非安全侧，承担系统管理、底层服务、跨核启动/协同等职责。M33 构建会使用 `m33/config/boot_with_extended_boot_scons.json` 对镜像进行重定位和合并，并输出 `build/rtthread.hex`。
+3. **M55**：位于 `FMT-Firmware/target/infineon/edge-e83/m55`，运行 FMT 飞控主固件和模型算法，输出 `build/fmt_e83-m55.elf` 和 `build/fmt_e83-m55.hex`。
+
+因此首次构建或完整更新固件时，请按 **bootloader -> M33 -> M55** 的顺序编译：
+
+```
+cd FMT-Firmware/target/infineon/edge-e83/bootloader
+scons -j16
+
+cd ../m33
+scons -j16
+
+cd ../m55
+scons -j16
+```
+
+如果修改了 bootloader 的配置文件、链接脚本、签名/镜像布局等内容，建议先在 bootloader 目录执行一次清理再重新编译：
+
+```
+cd FMT-Firmware/target/infineon/edge-e83/bootloader
+scons -c
+scons -j16
+```
+
+bootloader 重新生成后，建议继续按顺序重新编译 M33 和 M55，确保 M33 打包时引用的是最新的 bootloader 镜像。
+
+在以下说明介绍中，我们将以编译 **Edgi-X / Edge-E83** 飞控作为示例，来阐述固件构建过程。
 
 1. 使用系统终端导航到BSP所在目录：
 
    ```
-   cd FMT-Firmware/taget/sieon/s1
+   cd FMT-Firmware/target/infineon/edge-e83/m55
    ```
 
 2. 使用scons命令启动构建过程：
@@ -38,31 +69,22 @@
 3. 编译完成后，可在BSP的build目录下看到固件的生成文件。若出现编译错误，可先尝试使用`scons -c`清理下目录，再重新编译。
 
    ```
-   PS D:\ws\FMT\FMT-Firmware\target\sieon\s1> scons -j8
+   PS D:\ws\FMT\FMT-Firmware\target\infineon\edge-e83\m55> scons -j8
    scons: Reading SConscript files ...
-   b''
    scons: done reading SConscript files.
    scons: Building targets ...
    scons: building associated VariantDir targets: build
    CC build\board\board.o
-   CC build\board\bsp_cmd.o
+   CC build\drivers\drv_pwm.o
    ......
-   LINK build\fmt_sieon-s1.elf
+   LINK build\fmt_e83-m55.elf
    Memory region         Used Size  Region Size  %age Used
-               CODE:      817624 B      1920 KB     41.59%
-           ITCM_RAM:          0 GB        64 KB      0.00%
-           DTCM_RAM:          0 GB       128 KB      0.00%
-             SRAMD1:      240724 B       512 KB     45.91%
-             SRAMD2:          0 GB       256 KB      0.00%
-             SRAMD3:          0 GB        64 KB      0.00%
-             BKPRAM:          0 GB         4 KB      0.00%
-    RxDecripSection:          96 B        32 KB      0.29%
-    TxDecripSection:          96 B        32 KB      0.29%
-     RxArraySection:        6112 B        32 KB     18.65%
-   arm-none-eabi-objcopy -O binary build\fmt_sieon-s1.elf build/fmt_sieon-s1.bin
-   arm-none-eabi-size build\fmt_sieon-s1.elf
+             FLASH:          ...        16 MB        ...
+             SRAM:           ...         4 MB        ...
+   arm-none-eabi-objcopy -O ihex build\fmt_e83-m55.elf build/fmt_e83-m55.hex
+   arm-none-eabi-size build\fmt_e83-m55.elf
       text    data     bss     dec     hex filename
-    817624   46544  200484 1064652  103ecc build\fmt_sieon-s1.elf
+   1073776  264536 3929312 5267624  5060a8 build\fmt_e83-m55.elf
    scons: done building targets.
    ```
 
