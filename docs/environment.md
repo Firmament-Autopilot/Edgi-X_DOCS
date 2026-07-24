@@ -17,30 +17,11 @@ git clone https://github.com/Firmament-Autopilot/FMT-Firmware.git --recursive --
 
 #### 编译器
 
-FMT使用**arm-none-eabi- toolchain** `7-2018-q2-update` 版本，可上其 [官网](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 进行下载安装。
+编译器使用arm-gcc，请先在RTT官网下载[env工具]([rt-thread.org/download.html#download-rt-thread-env-tool](https://www.rt-thread.org/download.html#download-rt-thread-env-tool))，然后添加环境变量**RTT_EXEC_PATH_OVERRIDE**，将其设置为env工具中的arm-gcc的路径，如下所示
 
-> 请务必要使用指定的编译器版本，以防止出现意外错误或不可预见的行为。
-
-编译器下载完成后，下一步是创建一个名为`RTT_EXEC_PATH`的新环境变量，并该变量应指向编译器 bin 目录的完整路径。以下是设置环境变量的方法：
-
-1. 找到编辑器文件夹中包含 `gcc`、`gdb` 等可执行文件的编译器 bin 目录的路径。
-
-1. 将 RTT_EXEC_PATH 环境变量设置为此完整路径。根据您的操作系统，设置过程有所不同：
-   - **Windows**:打开控制面板，依次进入“系统和安全 > 系统 > 高级系统设置 > 环境变量”。在“用户变量”下点击“新建”，然后输入变量名为 RTT_EXEC_PATH，变量值为编译器 bin 目录的完整路径。
-   
-       <p align="center">
-         <img src="./figures/win_path.png" width="60%">
-       </p>
-   
-   - **Linux/Mac**: 打开终端并编辑 shell 配置文件(例如, `~/.bashrc`, `~/.bash_profile`, or `~/.zshrc`, 确保其在系统开机时会被执行). 在文件中添加以下一行：
-   
-     ```
-     export RTT_EXEC_PATH=<path-to-compiler>/bin
-     ```
-   
-     > 请将<path-to-compiler>替换为你的编译器所在的完整路径
-
-3. 保存文件并运行 source ~/.bashrc（或对应的 shell 配置文件）以使更改生效。 `RTT_EXEC_PATH` 环境变量保存了编译器执行文件所在地路径，以让构建工具可以找到正确的编译器路径。
+   <p align="center">
+     <img src="./figures/win_path.png" width="60%">
+   </p>
 
 #### 构建工具
 
@@ -102,4 +83,3 @@ VS Code 提供了强大且用户友好的开发环境，具备广泛的扩展和
 <p align="center">
   <img src="./figures/vscode_plugin.png" width="40%">
 </p>
-
